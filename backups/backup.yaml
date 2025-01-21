@@ -1,0 +1,764 @@
+apiVersion: v1
+items:
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    creationTimestamp: "2025-01-21T19:13:07Z"
+    generateName: postgres-stateful-
+    labels:
+      app: postgres
+      controller-revision-hash: postgres-stateful-74b4f964d5
+      statefulset.kubernetes.io/pod-name: postgres-stateful-0
+    name: postgres-stateful-0
+    namespace: standard
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: StatefulSet
+      name: postgres-stateful
+      uid: 2af1cb13-f631-4b6c-9be6-ba18b8354238
+    resourceVersion: "14901"
+    uid: 3f5fb78a-8685-47ef-9644-49ee66fa0ebb
+  spec:
+    containers:
+    - envFrom:
+      - configMapRef:
+          name: postgres-cm
+      - secretRef:
+          name: postgres-password
+      image: docker.io/postgres:12.0-alpine
+      imagePullPolicy: IfNotPresent
+      name: postgres
+      ports:
+      - containerPort: 5432
+        protocol: TCP
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /var/lib/postgresql/data
+        name: postgresdata
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-smvjq
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    hostname: postgres-stateful-0
+    nodeName: ip-172-31-12-155
+    preemptionPolicy: PreemptLowerPriority
+    priority: 0
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext: {}
+    serviceAccount: default
+    serviceAccountName: default
+    subdomain: postgres-svc
+    terminationGracePeriodSeconds: 30
+    tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+    volumes:
+    - name: postgresdata
+      persistentVolumeClaim:
+        claimName: postgres-pvc
+    - name: kube-api-access-smvjq
+      projected:
+        defaultMode: 420
+        sources:
+        - serviceAccountToken:
+            expirationSeconds: 3607
+            path: token
+        - configMap:
+            items:
+            - key: ca.crt
+              path: ca.crt
+            name: kube-root-ca.crt
+        - downwardAPI:
+            items:
+            - fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+              path: namespace
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2025-01-21T19:13:07Z"
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2025-01-21T19:13:13Z"
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2025-01-21T19:13:13Z"
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2025-01-21T19:13:07Z"
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: containerd://5a0122c58e767ff9f8607f0248e2d1e20de3daf7ece64f340737b512a5d55834
+      image: docker.io/library/postgres:12.0-alpine
+      imageID: docker.io/library/postgres@sha256:5115ec0afd378e91b5eed848a7e0ae0a9c7995fe05ad14f1eb3038bcf53acbf7
+      lastState: {}
+      name: postgres
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2025-01-21T19:13:12Z"
+    hostIP: 172.31.12.155
+    phase: Running
+    podIP: 10.42.2.7
+    podIPs:
+    - ip: 10.42.2.7
+    qosClass: BestEffort
+    startTime: "2025-01-21T19:13:07Z"
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    creationTimestamp: "2025-01-21T20:18:03Z"
+    generateName: fastapi-deployment-6b8948bb8f-
+    labels:
+      app: fastapi
+      pod-template-hash: 6b8948bb8f
+    name: fastapi-deployment-6b8948bb8f-w7ljr
+    namespace: standard
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ReplicaSet
+      name: fastapi-deployment-6b8948bb8f
+      uid: c2541c6c-04d5-47c4-98e9-6f1d0f6265e5
+    resourceVersion: "17083"
+    uid: e2ee7a53-cff0-4724-b239-b487128ad71a
+  spec:
+    containers:
+    - envFrom:
+      - configMapRef:
+          name: fastapi-cm
+      - secretRef:
+          name: fastapi-secret
+      image: mancywaid/dst-api:latest
+      imagePullPolicy: Always
+      name: fastapi
+      ports:
+      - containerPort: 5000
+        protocol: TCP
+      resources:
+        limits:
+          cpu: 500m
+          memory: 128Mi
+        requests:
+          cpu: 500m
+          memory: 128Mi
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-9l7wj
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    nodeName: ip-172-31-12-155
+    preemptionPolicy: PreemptLowerPriority
+    priority: 0
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext: {}
+    serviceAccount: default
+    serviceAccountName: default
+    terminationGracePeriodSeconds: 30
+    tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+    volumes:
+    - name: kube-api-access-9l7wj
+      projected:
+        defaultMode: 420
+        sources:
+        - serviceAccountToken:
+            expirationSeconds: 3607
+            path: token
+        - configMap:
+            items:
+            - key: ca.crt
+              path: ca.crt
+            name: kube-root-ca.crt
+        - downwardAPI:
+            items:
+            - fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+              path: namespace
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2025-01-21T20:18:03Z"
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2025-01-21T20:18:05Z"
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2025-01-21T20:18:05Z"
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2025-01-21T20:18:03Z"
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: containerd://5a2d297b1905b09bf05da8d858f0687474e0846704ab9a88fce3eb47a9cdcbc6
+      image: docker.io/mancywaid/dst-api:latest
+      imageID: docker.io/mancywaid/dst-api@sha256:18b458209b1d3772db3dd10f7b7ac02ce36a136229df9d51279dc2d619e92db6
+      lastState: {}
+      name: fastapi
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2025-01-21T20:18:04Z"
+    hostIP: 172.31.12.155
+    phase: Running
+    podIP: 10.42.2.11
+    podIPs:
+    - ip: 10.42.2.11
+    qosClass: Guaranteed
+    startTime: "2025-01-21T20:18:03Z"
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    creationTimestamp: "2025-01-21T20:18:03Z"
+    generateName: fastapi-deployment-6b8948bb8f-
+    labels:
+      app: fastapi
+      pod-template-hash: 6b8948bb8f
+    name: fastapi-deployment-6b8948bb8f-tkwgf
+    namespace: standard
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ReplicaSet
+      name: fastapi-deployment-6b8948bb8f
+      uid: c2541c6c-04d5-47c4-98e9-6f1d0f6265e5
+    resourceVersion: "17088"
+    uid: 9460d271-b300-417c-9b97-abedf14f3ac4
+  spec:
+    containers:
+    - envFrom:
+      - configMapRef:
+          name: fastapi-cm
+      - secretRef:
+          name: fastapi-secret
+      image: mancywaid/dst-api:latest
+      imagePullPolicy: Always
+      name: fastapi
+      ports:
+      - containerPort: 5000
+        protocol: TCP
+      resources:
+        limits:
+          cpu: 500m
+          memory: 128Mi
+        requests:
+          cpu: 500m
+          memory: 128Mi
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-vxp6r
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    nodeName: ip-172-31-12-155
+    preemptionPolicy: PreemptLowerPriority
+    priority: 0
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext: {}
+    serviceAccount: default
+    serviceAccountName: default
+    terminationGracePeriodSeconds: 30
+    tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+    volumes:
+    - name: kube-api-access-vxp6r
+      projected:
+        defaultMode: 420
+        sources:
+        - serviceAccountToken:
+            expirationSeconds: 3607
+            path: token
+        - configMap:
+            items:
+            - key: ca.crt
+              path: ca.crt
+            name: kube-root-ca.crt
+        - downwardAPI:
+            items:
+            - fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+              path: namespace
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2025-01-21T20:18:03Z"
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2025-01-21T20:18:05Z"
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2025-01-21T20:18:05Z"
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2025-01-21T20:18:03Z"
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: containerd://7c44fd8a24ca436b533dec75aab2a5d71ee6bed38aae19d20d98dfa45906918c
+      image: docker.io/mancywaid/dst-api:latest
+      imageID: docker.io/mancywaid/dst-api@sha256:18b458209b1d3772db3dd10f7b7ac02ce36a136229df9d51279dc2d619e92db6
+      lastState: {}
+      name: fastapi
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2025-01-21T20:18:05Z"
+    hostIP: 172.31.12.155
+    phase: Running
+    podIP: 10.42.2.12
+    podIPs:
+    - ip: 10.42.2.12
+    qosClass: Guaranteed
+    startTime: "2025-01-21T20:18:03Z"
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    creationTimestamp: "2025-01-21T20:18:03Z"
+    generateName: fastapi-deployment-6b8948bb8f-
+    labels:
+      app: fastapi
+      pod-template-hash: 6b8948bb8f
+    name: fastapi-deployment-6b8948bb8f-qwslv
+    namespace: standard
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ReplicaSet
+      name: fastapi-deployment-6b8948bb8f
+      uid: c2541c6c-04d5-47c4-98e9-6f1d0f6265e5
+    resourceVersion: "17091"
+    uid: aa041b8f-9e1b-4faf-9199-8d679ebcb1b1
+  spec:
+    containers:
+    - envFrom:
+      - configMapRef:
+          name: fastapi-cm
+      - secretRef:
+          name: fastapi-secret
+      image: mancywaid/dst-api:latest
+      imagePullPolicy: Always
+      name: fastapi
+      ports:
+      - containerPort: 5000
+        protocol: TCP
+      resources:
+        limits:
+          cpu: 500m
+          memory: 128Mi
+        requests:
+          cpu: 500m
+          memory: 128Mi
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-lm58k
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    nodeName: ip-172-31-12-155
+    preemptionPolicy: PreemptLowerPriority
+    priority: 0
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext: {}
+    serviceAccount: default
+    serviceAccountName: default
+    terminationGracePeriodSeconds: 30
+    tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+    volumes:
+    - name: kube-api-access-lm58k
+      projected:
+        defaultMode: 420
+        sources:
+        - serviceAccountToken:
+            expirationSeconds: 3607
+            path: token
+        - configMap:
+            items:
+            - key: ca.crt
+              path: ca.crt
+            name: kube-root-ca.crt
+        - downwardAPI:
+            items:
+            - fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+              path: namespace
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2025-01-21T20:18:03Z"
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2025-01-21T20:18:05Z"
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2025-01-21T20:18:05Z"
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2025-01-21T20:18:03Z"
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: containerd://44e932d4d0e12fee34163b8359b7f0198db5919e5d93f659d7922aaf5ee1cac6
+      image: docker.io/mancywaid/dst-api:latest
+      imageID: docker.io/mancywaid/dst-api@sha256:18b458209b1d3772db3dd10f7b7ac02ce36a136229df9d51279dc2d619e92db6
+      lastState: {}
+      name: fastapi
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2025-01-21T20:18:05Z"
+    hostIP: 172.31.12.155
+    phase: Running
+    podIP: 10.42.2.13
+    podIPs:
+    - ip: 10.42.2.13
+    qosClass: Guaranteed
+    startTime: "2025-01-21T20:18:03Z"
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app":"postgres"},"name":"db","namespace":"standard"},"spec":{"ports":[{"port":5432,"protocol":"TCP"}],"selector":{"app":"postgres"},"type":"ClusterIP"}}
+    creationTimestamp: "2025-01-21T19:12:18Z"
+    labels:
+      app: postgres
+    name: db
+    namespace: standard
+    resourceVersion: "14860"
+    uid: f2ce170d-f9af-4ab5-83b9-7bbe5dfe67b9
+  spec:
+    clusterIP: 10.43.139.23
+    clusterIPs:
+    - 10.43.139.23
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - port: 5432
+      protocol: TCP
+      targetPort: 5432
+    selector:
+      app: postgres
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"name":"fastapi-service","namespace":"standard"},"spec":{"ports":[{"name":"http","port":5000,"protocol":"TCP","targetPort":5000}],"selector":{"app":"fastapi"},"type":"LoadBalancer"}}
+    creationTimestamp: "2025-01-21T20:24:17Z"
+    finalizers:
+    - service.kubernetes.io/load-balancer-cleanup
+    name: fastapi-service
+    namespace: standard
+    resourceVersion: "17302"
+    uid: 41258f73-ea43-4b05-be96-6d3c34606386
+  spec:
+    allocateLoadBalancerNodePorts: true
+    clusterIP: 10.43.176.239
+    clusterIPs:
+    - 10.43.176.239
+    externalTrafficPolicy: Cluster
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - name: http
+      nodePort: 31016
+      port: 5000
+      protocol: TCP
+      targetPort: 5000
+    selector:
+      app: fastapi
+    sessionAffinity: None
+    type: LoadBalancer
+  status:
+    loadBalancer:
+      ingress:
+      - ip: 172.31.12.155
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "1"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"name":"fastapi-deployment","namespace":"standard"},"spec":{"replicas":3,"selector":{"matchLabels":{"app":"fastapi"}},"strategy":{"type":"RollingUpdate"},"template":{"metadata":{"labels":{"app":"fastapi"}},"spec":{"containers":[{"envFrom":[{"configMapRef":{"name":"fastapi-cm"}},{"secretRef":{"name":"fastapi-secret"}}],"image":"mancywaid/dst-api:latest","imagePullPolicy":"Always","name":"fastapi","ports":[{"containerPort":5000}],"resources":{"limits":{"cpu":"500m","memory":"128Mi"}}}]}}}}
+    creationTimestamp: "2025-01-21T20:18:03Z"
+    generation: 1
+    name: fastapi-deployment
+    namespace: standard
+    resourceVersion: "17097"
+    uid: 4409b5d6-9463-4191-9e0d-2ed9c8dc28b8
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 3
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app: fastapi
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app: fastapi
+      spec:
+        containers:
+        - envFrom:
+          - configMapRef:
+              name: fastapi-cm
+          - secretRef:
+              name: fastapi-secret
+          image: mancywaid/dst-api:latest
+          imagePullPolicy: Always
+          name: fastapi
+          ports:
+          - containerPort: 5000
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 500m
+              memory: 128Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 3
+    conditions:
+    - lastTransitionTime: "2025-01-21T20:18:05Z"
+      lastUpdateTime: "2025-01-21T20:18:05Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2025-01-21T20:18:03Z"
+      lastUpdateTime: "2025-01-21T20:18:05Z"
+      message: ReplicaSet "fastapi-deployment-6b8948bb8f" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 1
+    readyReplicas: 3
+    replicas: 3
+    updatedReplicas: 3
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "3"
+      deployment.kubernetes.io/max-replicas: "4"
+      deployment.kubernetes.io/revision: "1"
+    creationTimestamp: "2025-01-21T20:18:03Z"
+    generation: 1
+    labels:
+      app: fastapi
+      pod-template-hash: 6b8948bb8f
+    name: fastapi-deployment-6b8948bb8f
+    namespace: standard
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: fastapi-deployment
+      uid: 4409b5d6-9463-4191-9e0d-2ed9c8dc28b8
+    resourceVersion: "17096"
+    uid: c2541c6c-04d5-47c4-98e9-6f1d0f6265e5
+  spec:
+    replicas: 3
+    selector:
+      matchLabels:
+        app: fastapi
+        pod-template-hash: 6b8948bb8f
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app: fastapi
+          pod-template-hash: 6b8948bb8f
+      spec:
+        containers:
+        - envFrom:
+          - configMapRef:
+              name: fastapi-cm
+          - secretRef:
+              name: fastapi-secret
+          image: mancywaid/dst-api:latest
+          imagePullPolicy: Always
+          name: fastapi
+          ports:
+          - containerPort: 5000
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 500m
+              memory: 128Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 3
+    fullyLabeledReplicas: 3
+    observedGeneration: 1
+    readyReplicas: 3
+    replicas: 3
+- apiVersion: apps/v1
+  kind: StatefulSet
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"StatefulSet","metadata":{"annotations":{},"name":"postgres-stateful","namespace":"standard"},"spec":{"replicas":1,"selector":{"matchLabels":{"app":"postgres"}},"serviceName":"postgres-svc","template":{"metadata":{"labels":{"app":"postgres"}},"spec":{"containers":[{"envFrom":[{"configMapRef":{"name":"postgres-cm"}},{"secretRef":{"name":"postgres-password"}}],"image":"docker.io/postgres:12.0-alpine","imagePullPolicy":"IfNotPresent","name":"postgres","ports":[{"containerPort":5432,"protocol":"TCP"}],"volumeMounts":[{"mountPath":"/var/lib/postgresql/data","name":"postgresdata"}]}],"volumes":[{"name":"postgresdata","persistentVolumeClaim":{"claimName":"postgres-pvc"}}]}}}}
+    creationTimestamp: "2025-01-21T19:13:07Z"
+    generation: 1
+    name: postgres-stateful
+    namespace: standard
+    resourceVersion: "14903"
+    uid: 2af1cb13-f631-4b6c-9be6-ba18b8354238
+  spec:
+    podManagementPolicy: OrderedReady
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app: postgres
+    serviceName: postgres-svc
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app: postgres
+      spec:
+        containers:
+        - envFrom:
+          - configMapRef:
+              name: postgres-cm
+          - secretRef:
+              name: postgres-password
+          image: docker.io/postgres:12.0-alpine
+          imagePullPolicy: IfNotPresent
+          name: postgres
+          ports:
+          - containerPort: 5432
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /var/lib/postgresql/data
+            name: postgresdata
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - name: postgresdata
+          persistentVolumeClaim:
+            claimName: postgres-pvc
+    updateStrategy:
+      rollingUpdate:
+        partition: 0
+      type: RollingUpdate
+  status:
+    availableReplicas: 1
+    collisionCount: 0
+    currentReplicas: 1
+    currentRevision: postgres-stateful-74b4f964d5
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+    updateRevision: postgres-stateful-74b4f964d5
+    updatedReplicas: 1
+kind: List
+metadata:
+  resourceVersion: ""
