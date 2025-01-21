@@ -1,0 +1,6 @@
+2025-01-21 20:54:35.622 UTC [1] LOG:  starting PostgreSQL 12.0 on x86_64-pc-linux-musl, compiled by gcc (Alpine 8.3.0) 8.3.0, 64-bit
+2025-01-21 20:54:35.622 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+2025-01-21 20:54:35.623 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+2025-01-21 20:54:35.629 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+2025-01-21 20:54:35.664 UTC [18] LOG:  database system was shut down at 2025-01-21 20:54:34 UTC
+2025-01-21 20:54:35.673 UTC [1] LOG:  database system is ready to accept connections

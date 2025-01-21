@@ -1,0 +1,34 @@
+Name:                     fastapi-service
+Namespace:                standard
+Labels:                   <none>
+Annotations:              <none>
+Selector:                 app=fastapi
+Type:                     LoadBalancer
+IP Family Policy:         SingleStack
+IP Families:              IPv4
+IP:                       10.43.176.239
+IPs:                      10.43.176.239
+LoadBalancer Ingress:     172.31.12.155 (VIP)
+Port:                     http  5000/TCP
+TargetPort:               5000/TCP
+NodePort:                 http  31016/TCP
+Endpoints:                10.42.2.12:5000,10.42.2.11:5000,10.42.2.13:5000
+Session Affinity:         None
+External Traffic Policy:  Cluster
+Internal Traffic Policy:  Cluster
+Events:
+  Type     Reason                   Age                    From                   Message
+  ----     ------                   ----                   ----                   -------
+  Normal   Type                     37m                    service-controller     NodePort -> LoadBalancer
+  Normal   EnsuringLoadBalancer     37m                    service-controller     Ensuring load balancer
+  Normal   AppliedDaemonSet         37m                    service-controller     Applied LoadBalancer DaemonSet kube-system/svclb-fastapi-service-41258f73
+  Normal   UpdatedLoadBalancer      37m                    service-controller     Updated LoadBalancer with new IPs: [] -> [172.31.12.155]
+  Normal   EnsuringLoadBalancer     16m                    service-controller     Ensuring load balancer
+  Normal   AppliedDaemonSet         16m                    service-controller     Applied LoadBalancer DaemonSet kube-system/svclb-fastapi-service-41258f73
+  Normal   EnsuringLoadBalancer     10m                    service-controller     Ensuring load balancer
+  Normal   AppliedDaemonSet         10m                    service-controller     Applied LoadBalancer DaemonSet kube-system/svclb-fastapi-service-41258f73
+  Normal   EnsuringLoadBalancer     9m15s                  service-controller     Ensuring load balancer
+  Normal   AppliedDaemonSet         9m15s                  service-lb-controller  Applied LoadBalancer DaemonSet kube-system/svclb-fastapi-service-41258f73
+  Normal   UpdatedLoadBalancer      9m12s (x4 over 9m16s)  service-lb-controller  Updated LoadBalancer with new IPs: [172.31.12.155] -> [172.31.12.155]
+  Warning  UnAvailableLoadBalancer  9m9s                   service-lb-controller  There are no available nodes for LoadBalancer
+  Normal   UpdatedLoadBalancer      9m3s                   service-lb-controller  Updated LoadBalancer with new IPs: [] -> [172.31.12.155]
