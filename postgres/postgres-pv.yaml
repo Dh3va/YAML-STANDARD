@@ -10,7 +10,7 @@ spec:
   capacity:
     storage: 10Gi
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   storageClassName: manual
   hostPath:
-    path: /data/postgresql
+    path: /mnt/data

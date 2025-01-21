@@ -5,8 +5,6 @@ metadata:
   namespace: standard
   labels:
     name: fastapi
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
   - host: fastapi.creativeye.ovh
@@ -18,5 +16,5 @@ spec:
           service:
             name: fastapi-service
             port: 
-              number: 80
+              number: 5000
 
